@@ -1,108 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="style.css">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <title>Countdown Timer</title>
-  </head>
-  <body>
-    <div class="video-backdrop">
-      <video src="media/backgroud.mp4" loop autoplay muted></video>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <title>Countdown Timer</title>
+</head>
+
+<body>
+  <div class="video-backdrop">
+    <video src="media/backgroud.mp4" loop autoplay muted></video>
+  </div>
+  <div class="all-body-content">
+    <div class="label-logo">
+      <span class="bay-woods">BayWoods</span>
     </div>
-    <div class="all-body-content">
-      <div class="label-logo">
-        <span class="bay-woods">BayWoods</span>
-      </div>
-      <div class="list-container">
-        <div class="plac-centrer">
-          <div class="count-down">
-            <span class="count-down-text">
-              <div class="box-count">
-                <div class="date-num" id="month">2</div>
-                <div class="date-text">Months</div>
-              </div>
-              <div class="box-count">
-                <div class="date-num" id="days">0</div>
-                <div class="date-text">Days</div>
-              </div>
-              <div class="box-count">
-                <div class="date-num" id="hours">0</div>
-                <div class="date-text">Hours</div>
-              </div>
-              <div class="box-count">
-                <div class="date-num" id="minutes">0</div>
-                <div class="date-text">Minutes</div>
-              </div>
-              <div class="box-count">
-                <div class="date-num" id="seconds">0</div>
-                <div class="date-text">Seconds</div>
-              </div>
-            </span>
-          </div>
+    <div class="list-container">
+      <div class="plac-centrer">
+        <div class="countdown">
+          <div class="flip-card" id="months"><span class="current">00</span><span class="next">00</span></div>
+          <div class="label">Months</div>
+
+          <div class="flip-card" id="days"><span class="current">00</span><span class="next">00</span></div>
+          <div class="label">Days</div>
+
+          <div class="flip-card" id="hours"><span class="current">00</span><span class="next">00</span></div>
+          <div class="label">Hours</div>
+
+          <div class="flip-card" id="minutes"><span class="current">00</span><span class="next">00</span></div>
+          <div class="label">Minutes</div>
+
+          <div class="flip-card" id="seconds"><span class="current">00</span><span class="next">00</span></div>
+          <div class="label">Seconds</div>
         </div>
       </div>
     </div>
 
-    <script>
-      let previousValues = {
-        months: null,
-        days: null,
-        hours: null,
-        minutes: null,
-        seconds: null,
-      };
 
-      const countdown = () => {
-        // Set end date to December 1, 2024
-        const endDate = new Date("2024-12-01T00:00:00");
+    <script src="./script.js"></script>
+</body>
 
-        const now = new Date();
-        const timeRemaining = endDate - now;
-
-        if (timeRemaining <= 0) {
-          clearInterval(interval);
-          document.querySelector(".count-down-text").innerHTML =
-            "<div>Time's up!</div>";
-          return;
-        }
-
-        const seconds = Math.floor((timeRemaining / 1000) % 60);
-        const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
-        const hours = Math.floor((timeRemaining / 1000 / 60 / 60) % 24);
-        const days = Math.floor((timeRemaining / 1000 / 60 / 60 / 24) % 30);
-        const months = Math.floor((timeRemaining / (1000 * 60 * 60 * 24 * 30)));
-
-        // Update the DOM with flipping animation only if values have changed
-        if (months !== previousValues.months) updateWithAnimation("#month", months);
-        if (days !== previousValues.days) updateWithAnimation("#days", days);
-        if (hours !== previousValues.hours) updateWithAnimation("#hours", hours);
-        if (minutes !== previousValues.minutes) updateWithAnimation("#minutes", minutes);
-        if (seconds !== previousValues.seconds) updateWithAnimation("#seconds", seconds);
-
-        // Store current values as previous
-        previousValues = { months, days, hours, minutes, seconds };
-      };
-
-      const updateWithAnimation = (selector, newValue) => {
-        const element = document.querySelector(selector);
-        element.classList.add("flipping");
-        setTimeout(() => {
-          element.textContent = newValue;
-          element.classList.remove("flipping");
-        }, 600); // Match this to the CSS transition duration
-      };
-
-      // Update countdown every second
-      const interval = setInterval(countdown, 1000);
-      countdown(); // Initial call to display the countdown immediately
-</script>
-
-  </body>
 </html>
